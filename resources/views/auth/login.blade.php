@@ -3,12 +3,17 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                @if ($errors->has('verification'))
+                    <h1>{{$errors->first('verification')}}</h1>
+                @endif
+            </div>
             <div class="col-md-6 py-4">
                 <div class="row">
                     <div class="col-sm-12 col-md-10">
                         <div class="card">
-                            <div class="card-header h3">{{ __('Login') }}</div>
+                            <div class="card-header h3">{{ __('Login') }}
+                            </div>
                             <div class="card-body">
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
