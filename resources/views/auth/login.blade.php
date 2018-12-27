@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+    @include('includes.navbar')
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
@@ -11,7 +12,7 @@
             <div class="col-md-6 py-4">
                 <div class="row">
                     <div class="col-sm-12 col-md-10">
-                        <div class="card">
+                        <div class="card border-top-design">
                             <div class="card-header h3">{{ __('Login') }}
                             </div>
                             <div class="card-body">
