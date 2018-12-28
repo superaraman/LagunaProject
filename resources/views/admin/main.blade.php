@@ -5,7 +5,7 @@
         @include('admin.sidebar')
         <div id="content" class="content w-100">
             @include('admin.navbar')
-            <div class="container-fluid p-4">
+            <div class="container-fluid py-4 px-5">
                 <div class="row">
                     <div class="card w-100">
                         <div class="card-body">
@@ -17,7 +17,6 @@
                                         <th>Lastname</th>
                                         <th>Firstname</th>
                                         <th>Email</th>
-                                        <th>Verified</th>
                                         <th>Role</th>
                                         <th>Created At</th>
                                         <th>Updated At</th>

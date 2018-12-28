@@ -30,7 +30,6 @@ $(document).ready(function () {
                     { data: 'lastname', name: 'lastname' },
                     { data: 'firstname', name: 'firstname' },
                     { data: 'email', name: 'email' },
-                    { data: 'verified', name: 'verified' },
                     { data: 'user_role', name: 'user_role' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'updated_at', name: 'updated_at' }
@@ -41,6 +40,5 @@ $(document).ready(function () {
 
     oAdmin.init();
     oSidebar.init();
-
     oAdmin.loadUserDataTable();
 });
