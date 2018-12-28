@@ -26,7 +26,9 @@ class AdminBL
     }
 
     /**
-     * Index
+     * Returns all verified Users
+     *
+     * @return mixed
      */
     public function getVerifiedUser()
     {

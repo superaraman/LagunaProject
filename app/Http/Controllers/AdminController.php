@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\BusinessLogics\AdminBL;
 use Illuminate\Http\Request;
+use App\BusinessLogics\AdminBL;
 use App\Models\User;
 use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {
     /**
-     * @var User Announcement model
+     * Instance of business logic
+     *
+     * @var AdminBL
      */
-    private $oAdminBL;
+    private $oBlAdmin;
 
     /**
      * Create a new controller instance.
@@ -22,7 +24,7 @@ class AdminController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->oAdminBL = new AdminBL(new User());
+        $this->oBlAdmin = new AdminBL(new User());
     }
 
     /**
@@ -43,7 +45,7 @@ class AdminController extends Controller
      */
     public function getUsersData()
     {
-        $aVerifiedUser = $this->oAdminBL->getVerifiedUser();
+        $aVerifiedUser = $this->oBlAdmin->getVerifiedUser();
 
         return DataTables::of($aVerifiedUser)->make(true);
     }
