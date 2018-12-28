@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
+use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
 {
@@ -17,12 +19,23 @@ class AdminController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application amdin.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         return view('admin.main');
+    }
+
+    /**
+     * Returns data of Users
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getUsersData()
+    {
+        return DataTables::of(User::query())->make(true);
     }
 }
