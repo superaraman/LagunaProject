@@ -1,5 +1,5 @@
-<nav id="sidebar" class="bg-dark text-white">
-    <div class="sidebar-header bg-dark">
+<nav id="sidebar" class="bg-gradient-vanusa">
+    <div class="sidebar-header bg-gradient-vanusa text-white">
         <div class="ml-2">Laravel Practice</div>
     </div>
 

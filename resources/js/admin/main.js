@@ -10,14 +10,7 @@ $(document).ready(function () {
         init: function() {
             oSidebar.init();
             oDataTable.init();
-            this.data();
             this.main();
-        },
-        /**
-         * Data
-         */
-        data: function() {
-            this.sDomainURL = window.location.origin;
         },
         /**
          * Main Function
@@ -29,9 +22,9 @@ $(document).ready(function () {
          * Shows Table depending on the URL
          */
         checkActionByUrl: function() {
-            if (window.location.href === this.sDomainURL + PENDING_USERS) {
+            if ((new RegExp(PENDING_USERS)).test(window.location.href) === true) {
                 oDataTable.showPendingRequests();
-            } else if (window.location.href === this.sDomainURL + VERIFIED_USERS) {
+            } else if ((new RegExp(VERIFIED_USERS)).test(window.location.href)) {
                 oDataTable.showVerifiedUsers();
             }
         },

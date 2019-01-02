@@ -9,6 +9,7 @@
 }
 
 #sidebar {
+  color: #ebebeb;
   margin-left: -250px;
   min-width: 250px;
   max-width: 250px;
@@ -17,7 +18,7 @@
 
   .sidebar-header {
     padding: 10px;
-    border-bottom: 2px solid #ff7b1f;
+    border-bottom: 2px solid #fff;
 
     div {
       font-size: 22px;
@@ -35,16 +36,16 @@
 
   ul li a {
     padding: 15px;
-    font-size: 1.1em;
+    font-size: 1.0em;
     display: block;
   }
 
   ul li a:hover {
-    color: #3490dc;
+    color: #fff;
   }
 
   ul li.active > a, a[aria-expanded="true"] {
-    color: #3490dc;
+    color: #fff;
   }
 
   ul ul a {

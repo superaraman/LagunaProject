@@ -17,6 +17,10 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.bg-gradient-vanusa {
+  background: linear-gradient(to right, rgb(218, 68, 83), rgb(137, 33, 107));
+}
+
 .border-top-design {
   border-top: 4px solid #3490dc;
 }
