@@ -7,8 +7,11 @@
             @include('admin.navbar')
             <div class="container-fluid py-4 px-5">
                 <div class="row">
+                    <div class="h5 page-title">Pending Users</div>
+                </div>
+                <div class="row">
                     <div class="card w-100">
-                        <div class="card-body">
+                        <div class="card-body border-top-design">
                             <table id="usersTable" class="table table-striped table-hover dt-responsive w-100">
                                 <thead>
                                 <tr>

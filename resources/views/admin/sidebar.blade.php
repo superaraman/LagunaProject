@@ -31,10 +31,10 @@
             </a>
             <ul class="collapse list-unstyled" id="userSubmenu">
                 <li>
-                    <a href="/admin/users/pendings">Pending Requests</a>
+                    <a href="/admin/users/pendings">Pending Users</a>
                 </li>
                 <li>
-                    <a href="/admin/users/verified">Verified Users</a>
+                    <a href="/admin/users/verified">Employees</a>
                 </li>
             </ul>
         </li>
