@@ -30,8 +30,48 @@ class AdminBL
      *
      * @return mixed
      */
-    public function getVerifiedUser()
+    public function getVerifiedUsers()
     {
         return User::where('verified', 'YES');
+    }
+
+    /**
+     * Returns all pending Users
+     *
+     * @return mixed
+     */
+    public function getPendingUsers()
+    {
+        return User::where('verified', 'NO');
+    }
+
+    /**
+     * Accepts the pending User
+     *
+     * @param int $iId
+     * @return array
+     */
+    public function acceptPendingUsers(int $iId): array
+    {
+        if (User::where('id', $iId)->update(['verified' => 'YES']) === 0) {
+            return ['bResult' => false, 'sMessage' => 'Error updating user.'];
+        }
+
+        return ['bResult' => true, 'sMessage' => 'Successfully accepted pending user.'];
+    }
+
+    /**
+     * Rejects the Pending User
+     *
+     * @param int $iId
+     * @return array
+     */
+    public function rejectPendingUsers(int $iId)
+    {
+        if (User::where('id', $iId)->delete() === 0) {
+            return ['bResult' => false, 'sMessage' => 'No user found'];
+        }
+
+        return ['bResult' => true, 'sMessage' => 'Successfully deleted user.'];
     }
 }

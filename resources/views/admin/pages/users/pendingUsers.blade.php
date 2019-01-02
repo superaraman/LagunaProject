@@ -9,18 +9,17 @@
                 <div class="row">
                     <div class="card w-100">
                         <div class="card-body">
-                            <table id="users-table" class="table table-striped table-hover dt-responsive w-100">
+                            <table id="usersTable" class="table table-striped table-hover dt-responsive w-100">
                                 <thead>
-                                    <tr>
-                                        <th>Id</th>
-                                        <th>Username</th>
-                                        <th>Lastname</th>
-                                        <th>Firstname</th>
-                                        <th>Email</th>
-                                        <th>Role</th>
-                                        <th>Created At</th>
-                                        <th>Updated At</th>
-                                    </tr>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Username</th>
+                                    <th>Lastname</th>
+                                    <th>Firstname</th>
+                                    <th>Email</th>
+                                    <th>Created At</th>
+                                    <th>Action</th>
+                                </tr>
                                 </thead>
                             </table>
                         </div>

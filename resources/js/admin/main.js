@@ -1,44 +1,42 @@
 import 'core-js/fn/promise';
 import oSidebar from './sidebar.js';
+import oDataTable from './datatable';
+
+const PENDING_USERS = '/admin/users/pendings';
+const VERIFIED_USERS = '/admin/users/verified';
 
 $(document).ready(function () {
     let oAdmin = {
         init: function() {
+            oSidebar.init();
+            oDataTable.init();
             this.data();
-            this.cacheDom();
-            this.bindEvents();
+            this.main();
         },
+        /**
+         * Data
+         */
         data: function() {
+            this.sDomainURL = window.location.origin;
+        },
+        /**
+         * Main Function
+         */
+        main: function() {
+            this.checkActionByUrl();
+        },
+        /**
+         * Shows Table depending on the URL
+         */
+        checkActionByUrl: function() {
+            if (window.location.href === this.sDomainURL + PENDING_USERS) {
+                oDataTable.showPendingRequests();
+            } else if (window.location.href === this.sDomainURL + VERIFIED_USERS) {
+                oDataTable.showVerifiedUsers();
+            }
+        },
 
-        },
-        cacheDom: function() {
-            this.oUsersTable = $('#users-table');
-        },
-        bindEvents: function() {
-        },
-        loadUserDataTable: function() {
-            this.oUsersTable.DataTable({
-                responsive: true,
-                pageLength: 10,
-                lengthChange: false,
-                searching: true,
-                serverSide: true,
-                ajax: '/admin/getUsersData',
-                columns: [
-                    { data: 'id', name: 'id' },
-                    { data: 'username', name: 'username' },
-                    { data: 'lastname', name: 'lastname' },
-                    { data: 'firstname', name: 'firstname' },
-                    { data: 'email', name: 'email' },
-                    { data: 'user_role', name: 'user_role' },
-                    { data: 'created_at', name: 'created_at' },
-                    { data: 'updated_at', name: 'updated_at' }
-                ]
-            });
-        }
     };
 
     oAdmin.init();
-    oSidebar.init();
-    oAdmin.loadUserDataTable();
 });

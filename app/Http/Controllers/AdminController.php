@@ -34,19 +34,84 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin.main');
+        return view('admin.pages.dashboard');
     }
 
     /**
-     * Returns data of Users
+     * Shows Settings
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function settings()
+    {
+        return view('admin.pages.settings');
+    }
+
+    /**
+     * Shows Verified Users
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function verifiedUsers()
+    {
+        return view('admin.pages.users.verifiedUsers');
+    }
+
+    /**
+     * Shows Pending Users Requests
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function pendingUsers()
+    {
+        return view('admin.pages.users.pendingUsers');
+    }
+
+    /**
+     * Returns data of Verified Users
      *
      * @return mixed
      * @throws \Exception
      */
-    public function getUsersData()
+    public function getVerifiedUsers()
     {
-        $aVerifiedUser = $this->oBlAdmin->getVerifiedUser();
+        $aVerifiedUser = $this->oBlAdmin->getVerifiedUsers();
 
         return DataTables::of($aVerifiedUser)->make(true);
+    }
+
+    /**
+     * Returns data of Pending Users
+     *
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getPendingUsers()
+    {
+        $aPendingUsers = $this->oBlAdmin->getPendingUsers();
+
+        return DataTables::of($aPendingUsers)->make(true);
+    }
+
+    /**
+     * Accepts pending users
+     *
+     * @param Request $aRequest
+     * @return array
+     */
+    public function acceptPendingUsers(Request $aRequest)
+    {
+        return $this->oBlAdmin->acceptPendingUsers($aRequest->input('id'));
+    }
+
+    /**
+     * Rejects Pending Users
+     *
+     * @param Request $aRequest
+     * @return array
+     */
+    public function rejectPendingUsers(Request $aRequest)
+    {
+        return $this->oBlAdmin->rejectPendingUsers($aRequest->input('id'));
     }
 }
