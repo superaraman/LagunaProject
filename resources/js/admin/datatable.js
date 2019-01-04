@@ -1,3 +1,8 @@
+import 'datatables.net';
+import 'datatables.net-bs4';
+import 'datatables.net-responsive';
+import 'datatables.net-bs4/css/dataTables.bootstrap4.css';
+import $ from 'jquery';
 const ACCEPT = 'accept';
 const REJECT = 'reject';
 
@@ -82,10 +87,12 @@ let oDataTable = {
                 { data: 'created_at', name: 'created_at' },
                 {
                     data: null,
+                    searchable: false,
+                    orderable: false,
                     defaultContent: `
                             <button type="button" class="btn btn-outline-success accept-user">Accept</button>
                             <button type="button" class="btn btn-outline-danger delete-user">Delete</button>
-                        `
+                    `
                 }
             ],
         });
@@ -110,10 +117,12 @@ let oDataTable = {
                 { data: 'user_role', name: 'user_role' },
                 {
                     data: null,
+                    searchable: false,
+                    orderable: false,
                     defaultContent: `
                             <button type="button" class="btn btn-outline-primary">Update</button>
                             <button type="button" class="btn btn-outline-danger delete-user">Delete</button>
-                        `
+                    `
                 }
             ]
         });
