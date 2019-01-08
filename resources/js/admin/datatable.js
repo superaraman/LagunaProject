@@ -56,7 +56,13 @@ let oDataTable = {
      * @param sAction
      */
     userRequestAction: function(oElement, sAction) {
-        let oRowData = oDataTable.oInitializedTable.row(oElement.parents('tr')).data();
+        let oParent = oElement.parents('tr');
+        let iChildDetector = oElement.parents('tr.child').length;
+        if (iChildDetector > 0) {
+            oParent = oParent.prev();
+        }
+
+        let oRowData = oDataTable.oInitializedTable.row(oParent).data();
         let iID = parseInt(oRowData.id);
         oDataTable.requestsForPending(iID, sAction).then(function(response) {
             let aResult = response.data;

@@ -30,9 +30,9 @@ class AdminBL
      *
      * @return mixed
      */
-    public function getVerifiedUsers()
+    public function queryVerifiedUsers()
     {
-        return User::where('verified', 'YES');
+        return $this->oModelUser::where('verified', 'YES');
     }
 
     /**
@@ -40,9 +40,39 @@ class AdminBL
      *
      * @return mixed
      */
-    public function getPendingUsers()
+    public function queryPendingUsers()
     {
-        return User::where('verified', 'NO');
+        return $this->oModelUser::where('verified', 'NO');
+    }
+
+    /**
+     * Returns all super admin Users
+     *
+     * @return mixed
+     */
+    public function querySuperAdminUsers()
+    {
+        return $this->oModelUser::where('user_role', 'SUPER_ADMIN');
+    }
+
+    /**
+     * Returns all admin Users
+     *
+     * @return mixed
+     */
+    public function queryAdminUsers()
+    {
+        return $this->oModelUser::where('user_role', 'ADMIN');
+    }
+
+    /**
+     * Returns all users
+     *
+     * @return User[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getAllUsers()
+    {
+        return $this->oModelUser::all();
     }
 
     /**
@@ -53,7 +83,7 @@ class AdminBL
      */
     public function acceptPendingUsers(int $iId): array
     {
-        if (User::where('id', $iId)->update(['verified' => 'YES']) === 0) {
+        if ($this->oModelUser::where('id', $iId)->update(['verified' => 'YES']) === 0) {
             return ['bResult' => false, 'sMessage' => 'Error updating user.'];
         }
 
@@ -68,7 +98,7 @@ class AdminBL
      */
     public function rejectPendingUsers(int $iId)
     {
-        if (User::where('id', $iId)->delete() === 0) {
+        if ($this->oModelUser::where('id', $iId)->delete() === 0) {
             return ['bResult' => false, 'sMessage' => 'No user found'];
         }
 

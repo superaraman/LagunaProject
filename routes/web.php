@@ -22,9 +22,12 @@ Route::get('/admin', 'AdminController@index');
 
 Route::get('/admin/users/pendings', 'AdminController@pendingUsers');
 Route::get('/admin/users/verified', 'AdminController@verifiedUsers');
-Route::get('/admin/users/getPending', 'AdminController@getPendingUsers');
-Route::get('/admin/users/getVerified', 'AdminController@getVerifiedUsers');
 Route::post('/admin/users/accept', 'AdminController@acceptPendingUsers');
 Route::post('/admin/users/reject', 'AdminController@rejectPendingUsers');
+
+Route::get('/admin/table/getPendingUsers', 'AdminController@tablePendingUsers');
+Route::get('/admin/table/getVerifiedUsers', 'AdminController@tableVerifiedUsers');
+
+Route::get('/admin/graphs/getData', 'AdminController@getGraphsData');
 
 Route::get('/admin/settings', 'AdminController@settings');

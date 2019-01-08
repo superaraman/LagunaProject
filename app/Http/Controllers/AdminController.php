@@ -73,9 +73,9 @@ class AdminController extends Controller
      * @return mixed
      * @throws \Exception
      */
-    public function getVerifiedUsers()
+    public function tableVerifiedUsers()
     {
-        $aVerifiedUser = $this->oBlAdmin->getVerifiedUsers();
+        $aVerifiedUser = $this->oBlAdmin->queryVerifiedUsers();
 
         return DataTables::of($aVerifiedUser)->make(true);
     }
@@ -86,11 +86,22 @@ class AdminController extends Controller
      * @return mixed
      * @throws \Exception
      */
-    public function getPendingUsers()
+    public function tablePendingUsers()
     {
-        $aPendingUsers = $this->oBlAdmin->getPendingUsers();
+        $aPendingUsers = $this->oBlAdmin->queryPendingUsers();
 
         return DataTables::of($aPendingUsers)->make(true);
+    }
+
+    public function getGraphsData()
+    {
+        return [
+            'iAllUsers' => $this->oBlAdmin->getAllUsers()->count(),
+            'iPendingUsers' => $this->oBlAdmin->queryPendingUsers()->count(),
+            'iVerifiedUsers' => $this->oBlAdmin->queryVerifiedUsers()->count(),
+            'iSuperAdminUsers' => $this->oBlAdmin->querySuperAdminUsers()->count(),
+            'iAdminUsers' => $this->oBlAdmin->queryAdminUsers()->count(),
+        ];
     }
 
     /**
