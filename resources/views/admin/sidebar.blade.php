@@ -11,18 +11,10 @@
             </a>
         </li>
         <li>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+            <a href="#">
                 <i class="fa fa-book mr-1"></i>
-                PAGES
+                WATER DATA
             </a>
-            <ul class="collapse list-unstyled" id="pageSubmenu">
-                <li>
-                    <a href="#">Page 1</a>
-                </li>
-                <li>
-                    <a href="#">Page 2</a>
-                </li>
-            </ul>
         </li>
         <li>
             <a href="#userSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">

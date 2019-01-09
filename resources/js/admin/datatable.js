@@ -5,6 +5,7 @@ import 'datatables.net-bs4/css/dataTables.bootstrap4.css';
 import $ from 'jquery';
 const ACCEPT = 'accept';
 const REJECT = 'reject';
+const EDIT   = 'edit';
 
 let oDataTable = {
     init: function () {
@@ -25,53 +26,84 @@ let oDataTable = {
      * Bind events to elements
      */
     bindEvents: function() {
-        this.oUsersTable.on('click', '.accept-user',  this.acceptUserRequest);
-        this.oUsersTable.on('click', '.delete-user',  this.rejectUserRequest);
+        this.oUsersTable.on('click', '.accept-user',  this.acceptUser);
+        this.oUsersTable.on('click', '.delete-user',  this.rejectUser);
+        this.oUsersTable.on('click', '.edit-user',  this.editUser);
     },
     /**
      * Accepts the Request of User to be verified handler
      */
-    acceptUserRequest: function() {
+    acceptUser: function() {
         if (confirm('Are you sure you want to accept this user?') === false) {
             return;
         }
 
         let oElement = $(this);
-        oDataTable.userRequestAction(oElement, ACCEPT);
+        let oParent = oDataTable.getParentElement(oElement);
+        let oRowData = oDataTable.oInitializedTable.row(oParent).data();
+        let iID = parseInt(oRowData.id);
+        oDataTable.requestsForPending(iID, ACCEPT).then(function(response) {
+            let aResult = response.data;
+            if (aResult.bResult = true) {
+                if (oParent.next().attr('class') === 'child') {
+                    oParent.next().remove();
+                }
+
+                oParent.remove();
+            }
+
+            alert(aResult.sMessage);
+        });
     },
     /**
      * Accepts the Request of User to be verified handler
      */
-    rejectUserRequest: function() {
+    rejectUser: function() {
         if (confirm('Are you sure you want to delete this user?') === false) {
             return;
         }
 
         let oElement = $(this);
-        oDataTable.userRequestAction(oElement, REJECT);
+        let oParent = oDataTable.getParentElement(oElement);
+        let oRowData = oDataTable.oInitializedTable.row(oParent).data();
+        let iID = parseInt(oRowData.id);
+        oDataTable.requestsForPending(iID, REJECT).then(function(response) {
+            let aResult = response.data;
+            if (aResult.bResult = true) {
+                if (oParent.next().attr('class') === 'child') {
+                    oParent.next().remove();
+                }
+
+                oParent.remove();
+            }
+
+            alert(aResult.sMessage);
+        });
+    },
+    editUser: function() {
+        if (confirm('Are you sure you want to edit this user?') === false) {
+            return;
+        }
+
+        let oElement = $(this);
+        let oParent = oDataTable.getParentElement(oElement);
+        let oRowData = oDataTable.oInitializedTable.row(oParent).data();
+        let iID = parseInt(oRowData.id);
+        
     },
     /**
      * Accept and Reject Common
      * @param oElement
      * @param sAction
      */
-    userRequestAction: function(oElement, sAction) {
+    getParentElement: function(oElement) {
         let oParent = oElement.parents('tr');
         let iChildDetector = oElement.parents('tr.child').length;
         if (iChildDetector > 0) {
             oParent = oParent.prev();
         }
 
-        let oRowData = oDataTable.oInitializedTable.row(oParent).data();
-        let iID = parseInt(oRowData.id);
-        oDataTable.requestsForPending(iID, sAction).then(function(response) {
-            let aResult = response.data;
-            if (aResult.bResult = true) {
-                oElement.parents('tr').remove();
-            }
-
-            alert(aResult.sMessage);
-        });
+        return oParent;
     },
     /**
      * Shows Pending Users in table
@@ -83,7 +115,7 @@ let oDataTable = {
             lengthChange: false,
             searching: true,
             serverSide: true,
-            ajax: '/admin/users/getPending',
+            ajax: '/admin/table/getPendingUsers',
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'username', name: 'username' },
@@ -113,7 +145,7 @@ let oDataTable = {
             lengthChange: false,
             searching: true,
             serverSide: true,
-            ajax: '/admin/users/getVerified',
+            ajax: '/admin/table/getVerifiedUsers',
             columns: [
                 { data: 'id', name: 'id' },
                 { data: 'username', name: 'username' },
@@ -126,7 +158,7 @@ let oDataTable = {
                     searchable: false,
                     orderable: false,
                     defaultContent: `
-                            <button type="button" class="btn btn-outline-primary">Update</button>
+                            <button type="button" class="btn btn-outline-primary edit-user">Update</button>
                             <button type="button" class="btn btn-outline-danger delete-user">Delete</button>
                     `
                 }

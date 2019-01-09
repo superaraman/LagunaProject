@@ -104,4 +104,15 @@ class AdminBL
 
         return ['bResult' => true, 'sMessage' => 'Successfully deleted user.'];
     }
+
+    /**
+     * Get specific user that is verified
+     *
+     * @param int $iId
+     * @return mixed
+     */
+    public function getSpecificVerifiedUser(int $iId)
+    {
+        return $this->oModelUser::where('id', $iId)->where('verified', 'YES')->first();
+    }
 }

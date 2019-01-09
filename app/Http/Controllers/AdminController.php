@@ -125,4 +125,14 @@ class AdminController extends Controller
     {
         return $this->oBlAdmin->rejectPendingUsers($aRequest->input('id'));
     }
+
+    public function editPage($iId)
+    {
+        $mUser = $this->oBlAdmin->getSpecificVerifiedUser($iId);
+        if ($mUser === null) {
+            return redirect('/admin');
+        }
+
+        return $mUser;
+    }
 }
