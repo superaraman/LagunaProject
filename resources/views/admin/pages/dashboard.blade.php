@@ -7,10 +7,10 @@
             @include('admin.navbar')
             <div class="container-fluid py-4 px-5">
                 <div class="row">
-                    <div class="h5 page-title">Dashboard</div>
+                    <div class="h5 page-title pb-1">Dashboard</div>
                 </div>
                 <div id="graphs" class="row">
-                    <div class="col-lg-4 col-md-12 col-sm-12 mt-4">
+                    <div class="col-lg-4 col-md-12 col-sm-12 mb-3 p-0">
                         <div class="card border-top-design">
                             <div class="card-header text-center">
                                 <div class="h2">Verified vs Pending</div>
@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12 mt-4">
+                    <div class="col-lg-4 col-md-12 col-sm-12 mb-3 p-0">
                         <div class="card border-top-design">
                             <div class="card-header text-center">
                                 <div class="h3">Super Admin vs Admin</div>
@@ -32,7 +32,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4 col-md-12 col-sm-12 mt-4">
+                    <div class="col-lg-4 col-md-12 col-sm-12 mb-3 p-0">
                         <div class="card border-top-design">
                             <div class="card-header text-center">
                                 <div class="h3">Total Users</div>

@@ -5,7 +5,6 @@ import 'datatables.net-bs4/css/dataTables.bootstrap4.css';
 import $ from 'jquery';
 const ACCEPT = 'accept';
 const REJECT = 'reject';
-const EDIT   = 'edit';
 
 let oDataTable = {
     init: function () {
@@ -89,7 +88,7 @@ let oDataTable = {
         let oParent = oDataTable.getParentElement(oElement);
         let oRowData = oDataTable.oInitializedTable.row(oParent).data();
         let iID = parseInt(oRowData.id);
-        
+        window.location.replace('/admin/users/edit/' + iID);
     },
     /**
      * Accept and Reject Common

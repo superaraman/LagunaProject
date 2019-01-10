@@ -7,7 +7,7 @@
             @include('admin.navbar')
             <div class="container-fluid py-4 px-5">
                 <div class="row">
-                    <div class="h5 page-title">Settings</div>
+                    <div class="h5 page-title pb-1">Settings</div>
                 </div>
                 <div class="row">
 

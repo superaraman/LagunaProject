@@ -91,11 +91,3 @@
         </div>
     </div>
 @endsection
-
-@section('js')
-
-@stop
-
-@section('css')
-
-@stop
