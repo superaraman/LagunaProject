@@ -97,7 +97,7 @@ $(document).ready(function () {
         setAdminsChart: function() {
             let oData = oChart.buildData(
                 LABEL_ADMINS,
-                [this.oGraphsData['iAdminUsers'], this.oGraphsData['iSuperAdminUsers']]
+                [this.oGraphsData['iSuperAdminUsers'], this.oGraphsData['iAdminUsers']]
             );
 
             oChart.drawChart(oChart.oAdminChart, DOUGHNUT_CHART, oData, OPTION);
