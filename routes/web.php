@@ -11,13 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'PageController@index')->name('home');
+Route::get('/home', function () {
+    return redirect()->route('home');
+});
+
+/**
+ * Admin Web Routes
+ */
 Route::get('/admin', 'AdminController@index');
 
 Route::get('/admin/users/pendings', 'AdminController@pendingUsers');
