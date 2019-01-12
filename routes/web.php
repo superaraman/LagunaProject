@@ -18,6 +18,9 @@ Route::get('/home', function () {
     return redirect()->route('home');
 });
 
+Route::get('/about/laguna', 'PageController@laguna')->name('about.laguna');
+Route::get('/about/lake-uses', 'PageController@lakeUses')->name('about.lake-uses');
+
 /**
  * Admin Web Routes
  */

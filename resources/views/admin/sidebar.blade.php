@@ -1,6 +1,9 @@
 <nav id="sidebar" class="bg-gradient-vanusa">
     <div class="sidebar-header bg-gradient-vanusa text-white">
-        <div class="ml-2">Laravel Practice</div>
+        <div class="ml-2">
+            <img src="/img/logo.png" width="30" height="30" alt="" style="margin-top: -5px;">
+            Laravel Practice
+        </div>
     </div>
 
     <ul class="list-unstyled components">

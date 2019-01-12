@@ -1,1 +1,1 @@
-# Practice Laravel only
+# LagunaProject
