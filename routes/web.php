@@ -32,3 +32,4 @@ Route::get('/admin/table/getVerifiedUsers', 'AdminController@tableVerifiedUsers'
 Route::get('/admin/graphs/getData', 'AdminController@getGraphsData');
 
 Route::get('/admin/settings', 'AdminController@settings');
+
