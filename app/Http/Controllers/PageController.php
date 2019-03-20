@@ -35,4 +35,12 @@ class PageController extends Controller
     {
         return view('pages.about.lake-uses');
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function water()
+    {
+        return view('welcome');
+    }
 }

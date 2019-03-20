@@ -20,6 +20,7 @@ Route::get('/home', function () {
 
 Route::get('/about/laguna', 'PageController@laguna')->name('about.laguna');
 Route::get('/about/lake-uses', 'PageController@lakeUses')->name('about.lake-uses');
+Route::get('/water', 'PageController@water');
 
 /**
  * Admin Web Routes
