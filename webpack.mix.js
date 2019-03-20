@@ -12,8 +12,10 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+   .js('resources/js/pages.js', 'public/js/pages.js')
    .js('resources/js/admin/main.js', 'public/js/admin.js')
    .js('resources/js/admin/chart.js', 'public/js/chart.js')
    .js('resources/js/gmaps.js', 'public/js/gmaps.js')
    .sass('resources/sass/admin/sidebar.scss', 'public/css')
+   .sass('resources/sass/pages.scss', 'public/css/pages.css')
    .sass('resources/sass/app.scss', 'public/css');

@@ -5,9 +5,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-6">
-                @if ($errors->has('verification'))
-                    <h1>{{$errors->first('verification')}}</h1>
-                @endif
             </div>
             <div class="col-md-6 py-4">
                 <div class="row">
@@ -21,11 +18,15 @@
                                     <div class="form-group row">
                                         <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address / Username') }}</label>
                                         <div class="col-md-6">
-                                            <input id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+                                            <input id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }} {{ $errors->has('verification') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
                                             @if ($errors->has('email'))
                                                 <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                            @elseif ($errors->has('verification'))
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $errors->first('verification') }}</strong>
+                                                </span>
                                             @endif
                                         </div>
                                     </div>

@@ -11,13 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'PageController@index')->name('home');
+Route::get('/home', function () {
+    return redirect()->route('home');
+});
+
+Route::get('/about/laguna', 'PageController@laguna')->name('about.laguna');
+Route::get('/about/lake-uses', 'PageController@lakeUses')->name('about.lake-uses');
+
+/**
+ * Admin Web Routes
+ */
 Route::get('/admin', 'AdminController@index');
 
 Route::get('/admin/users/pendings', 'AdminController@pendingUsers');

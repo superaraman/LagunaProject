@@ -42,6 +42,11 @@
                                 Change Password
                             </a>
                             <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/">
+                                <i class="fa fa-home icons-margin-right"></i>
+                                Back to Home
+                            </a>
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 <i class="fa fa-power-off icons-margin-right"></i>
                                 Logout
