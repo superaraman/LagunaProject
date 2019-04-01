@@ -1,81 +1,143 @@
 import GoogleMapsLoader from 'google-maps';
+import WaterStation from './modules/WaterStation';
+
+const LAGUNA_COORDINATE = {lat: 14.3935, lng: 121.1939};
 
 $(document).ready(function () {
-    //AIzaSyBymq4YRMhZoMwnPUd2SfyzQQLEvUtafkM
     GoogleMapsLoader.KEY = 'AIzaSyBymq4YRMhZoMwnPUd2SfyzQQLEvUtafkM';
     GoogleMapsLoader.LIBRARIES = ['visualization'];
 
-    let oMap, oHeatmap;
+    let oMap, aStationLists = [];
     GoogleMapsLoader.load(function(oGoogle) {
+        const oStationData = mockData();
         oMap = new oGoogle.maps.Map(document.getElementById('map'), {
-            zoom: 13,
-            center: {lat: 37.775, lng: -122.434},
-            mapTypeId: 'satellite'
+            zoom: 10,
+            center: LAGUNA_COORDINATE
         });
 
-        oHeatmap = new google.maps.visualization.HeatmapLayer({
-            data: getPoints(),
-            map: oMap
+        Object.values(oStationData).forEach((oStation) => {
+            aStationLists[oStation.sName] = new WaterStation(oGoogle, oMap, oStation);
         });
 
-        console.log(oMap);
+        aStationLists['Station A'].updateWaterGrade(10);
+
+        oMap.addListener()
     });
 
-    function getPoints() {
-        return [
+    function mockData() {
+        return {
+            stationA : {
+                sName: 'Station A',
+                fGrade: 85,
+                oCoordinates: [
+                    new google.maps.LatLng(14.524672, 121.105763), // start upper middle
+                    new google.maps.LatLng(14.502094, 121.081964),
+                    new google.maps.LatLng(14.505384, 121.070305),
+                    new google.maps.LatLng(14.419320, 121.054306),
+                    new google.maps.LatLng(14.383582, 121.057230), // end of left side
+                    new google.maps.LatLng(14.425445, 121.129080), // start of right side
+                    new google.maps.LatLng(14.480934, 121.124224),
+                    new google.maps.LatLng(14.524672, 121.105763)  // back to starting point
+                ]
+            },
+            stationB : {
+                sName: 'Station B',
+                fGrade: 60,
+                oCoordinates: [
+                    new google.maps.LatLng(14.425445, 121.129080), // starting point middle
+                    new google.maps.LatLng(14.341195, 121.167825),
+                    new google.maps.LatLng(14.244062, 121.225463),
+                    new google.maps.LatLng(14.250689, 121.272137), // end of right
+                    new google.maps.LatLng(14.198789, 121.278976), // going down
+                    new google.maps.LatLng(14.196172, 121.189767),
+                    new google.maps.LatLng(14.226775, 121.195262),
+                    new google.maps.LatLng(14.268026, 121.167817),
+                    new google.maps.LatLng(14.298627, 121.132127),
+                    new google.maps.LatLng(14.331884, 121.117022),
+                    new google.maps.LatLng(14.383582, 121.057230), // end of left side
+                    new google.maps.LatLng(14.425445, 121.129080), // back to starting point
+                ]
+            },
+            stationC : {
+                sName: 'Station C',
+                fGrade: 85,
+                oCoordinates: [
+                    new google.maps.LatLng(14.292462, 121.323418), // starting point
+                    new google.maps.LatLng(14.271096, 121.328306),
+                    new google.maps.LatLng(14.250689, 121.272137),
+                    new google.maps.LatLng(14.198789, 121.278976), // start of bottom
+                    new google.maps.LatLng(14.253693, 121.347344),
+                    new google.maps.LatLng(14.303526, 121.406183),
+                    new google.maps.LatLng(14.306675, 121.433149),
+                    new google.maps.LatLng(14.339930, 121.417652),
+                    new google.maps.LatLng(14.324067, 121.465856),
+                    new google.maps.LatLng(14.378693, 121.465101),
+                    new google.maps.LatLng(14.391389, 121.413612),
+                    new google.maps.LatLng(14.347065, 121.398046),
+                    new google.maps.LatLng(14.333084, 121.361794),
+                    new google.maps.LatLng(14.292462, 121.323418), // starting point
 
-            new google.maps.LatLng(37.795656, -122.400395),
-            new google.maps.LatLng(37.795203, -122.400304),
-            new google.maps.LatLng(37.778738, -122.415584),
-            new google.maps.LatLng(37.778812, -122.415189),
-            new google.maps.LatLng(37.778824, -122.415092),
-            new google.maps.LatLng(37.778833, -122.414932),
-            new google.maps.LatLng(37.761344, -122.406215),
-            new google.maps.LatLng(37.760556, -122.406495),
-            new google.maps.LatLng(37.759732, -122.406484),
-            new google.maps.LatLng(37.758910, -122.406228),
-            new google.maps.LatLng(37.758182, -122.405695),
-            new google.maps.LatLng(37.757676, -122.405118),
-            new google.maps.LatLng(37.757039, -122.404346),
-            new google.maps.LatLng(37.756335, -122.403719),
-            new google.maps.LatLng(37.755503, -122.403406),
-            new google.maps.LatLng(37.754665, -122.403242),
-            new google.maps.LatLng(37.753837, -122.403172),
-            new google.maps.LatLng(37.752986, -122.403112),
-            new google.maps.LatLng(37.751266, -122.403355)
-        ];
+
+                ]
+            },
+            stationD : {
+                sName: 'Station D',
+                fGrade: 70,
+                oCoordinates: [
+                    new google.maps.LatLng(14.423028, 121.227929), // starting upper middle of station F
+                    new google.maps.LatLng(14.464953, 121.223856),
+                    new google.maps.LatLng(14.506828, 121.262481),
+                    new google.maps.LatLng(14.479968, 121.282687),
+                    new google.maps.LatLng(14.443558, 121.325967),
+                    new google.maps.LatLng(14.419818, 121.337387),
+                    new google.maps.LatLng(14.347052, 121.318549),
+                    new google.maps.LatLng(14.322540, 121.300570),
+                    new google.maps.LatLng(14.288520, 121.304637),
+                    new google.maps.LatLng(14.292462, 121.323418), // station C boundary
+                    new google.maps.LatLng(14.271096, 121.328306),
+                    new google.maps.LatLng(14.250689, 121.272137), // start of left
+                    new google.maps.LatLng(14.415894, 121.276933),
+                    new google.maps.LatLng(14.423028, 121.227929)
+                ]
+            },
+            stationE : {
+                sName: 'Station E',
+                fGrade: 90,
+                oCoordinates: [
+                    new google.maps.LatLng(14.524672, 121.105763), // starting point upper middle
+                    new google.maps.LatLng(14.480934, 121.124224),
+                    new google.maps.LatLng(14.425445, 121.129080), // end of left side
+                    new google.maps.LatLng(14.432728, 121.151434),
+                    new google.maps.LatLng(14.417420, 121.186111),
+                    new google.maps.LatLng(14.412087, 121.211179),
+                    new google.maps.LatLng(14.462648, 121.181325), // start of right side
+                    new google.maps.LatLng(14.462648, 121.181325),
+                    new google.maps.LatLng(14.471627, 121.183734),
+                    new google.maps.LatLng(14.494406, 121.172626),
+                    new google.maps.LatLng(14.493289, 121.165687),
+                    new google.maps.LatLng(14.509341, 121.142949),
+                    new google.maps.LatLng(14.527629, 121.139484),
+                    new google.maps.LatLng(14.527629, 121.139484),
+                    new google.maps.LatLng(14.524672, 121.105763)  // back to starting point
+                ]
+            },
+            stationF : {
+                sName: 'Station F',
+                fGrade: 55,
+                oCoordinates: [
+                    new google.maps.LatLng(14.425445, 121.129080), // starting point middle
+                    new google.maps.LatLng(14.432728, 121.151434),
+                    new google.maps.LatLng(14.417420, 121.186111),
+                    new google.maps.LatLng(14.412087, 121.211179),
+                    new google.maps.LatLng(14.423028, 121.227929),
+                    new google.maps.LatLng(14.415894, 121.276933),
+                    new google.maps.LatLng(14.250689, 121.272137), // end of mid to right
+                    new google.maps.LatLng(14.244062, 121.225463),
+                    new google.maps.LatLng(14.341195, 121.167825),
+                    new google.maps.LatLng(14.425445, 121.129080), // starting point middle
+                ]
+            }
+        };
     }
 });
-
-// function toggleHeatmap() {
-//     heatmap.setMap(heatmap.getMap() ? null : map);
-// }
-//
-// function changeGradient() {
-//     var gradient = [
-//         'rgba(0, 255, 255, 0)',
-//         'rgba(0, 255, 255, 1)',
-//         'rgba(0, 191, 255, 1)',
-//         'rgba(0, 127, 255, 1)',
-//         'rgba(0, 63, 255, 1)',
-//         'rgba(0, 0, 255, 1)',
-//         'rgba(0, 0, 223, 1)',
-//         'rgba(0, 0, 191, 1)',
-//         'rgba(0, 0, 159, 1)',
-//         'rgba(0, 0, 127, 1)',
-//         'rgba(63, 0, 91, 1)',
-//         'rgba(127, 0, 63, 1)',
-//         'rgba(191, 0, 31, 1)',
-//         'rgba(255, 0, 0, 1)'
-//     ]
-//     heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
-// }
-//
-// function changeRadius() {
-//     heatmap.set('radius', heatmap.get('radius') ? null : 20);
-// }
-//
-// function changeOpacity() {
-//     heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
-// }
 

@@ -80,66 +80,88 @@ module.exports = __webpack_require__(256);
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_google_maps__ = __webpack_require__(257);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_google_maps__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_WaterStation__ = __webpack_require__(258);
 
+
+
+var LAGUNA_COORDINATE = { lat: 14.3935, lng: 121.1939 };
 
 $(document).ready(function () {
-    //AIzaSyBymq4YRMhZoMwnPUd2SfyzQQLEvUtafkM
     __WEBPACK_IMPORTED_MODULE_0_google_maps___default.a.KEY = 'AIzaSyBymq4YRMhZoMwnPUd2SfyzQQLEvUtafkM';
     __WEBPACK_IMPORTED_MODULE_0_google_maps___default.a.LIBRARIES = ['visualization'];
 
     var oMap = void 0,
-        oHeatmap = void 0;
+        aStationLists = [];
     __WEBPACK_IMPORTED_MODULE_0_google_maps___default.a.load(function (oGoogle) {
+        var oStationData = mockData();
         oMap = new oGoogle.maps.Map(document.getElementById('map'), {
-            zoom: 13,
-            center: { lat: 37.775, lng: -122.434 },
-            mapTypeId: 'satellite'
+            zoom: 10,
+            center: LAGUNA_COORDINATE
         });
 
-        oHeatmap = new google.maps.visualization.HeatmapLayer({
-            data: getPoints(),
-            map: oMap
+        Object.values(oStationData).forEach(function (oStation) {
+            aStationLists[oStation.sName] = new __WEBPACK_IMPORTED_MODULE_1__modules_WaterStation__["a" /* default */](oGoogle, oMap, oStation);
         });
 
-        console.log(oMap);
+        aStationLists['Station A'].updateWaterGrade(10);
+
+        oMap.addListener();
     });
 
-    function getPoints() {
-        return [new google.maps.LatLng(37.795656, -122.400395), new google.maps.LatLng(37.795203, -122.400304), new google.maps.LatLng(37.778738, -122.415584), new google.maps.LatLng(37.778812, -122.415189), new google.maps.LatLng(37.778824, -122.415092), new google.maps.LatLng(37.778833, -122.414932), new google.maps.LatLng(37.761344, -122.406215), new google.maps.LatLng(37.760556, -122.406495), new google.maps.LatLng(37.759732, -122.406484), new google.maps.LatLng(37.758910, -122.406228), new google.maps.LatLng(37.758182, -122.405695), new google.maps.LatLng(37.757676, -122.405118), new google.maps.LatLng(37.757039, -122.404346), new google.maps.LatLng(37.756335, -122.403719), new google.maps.LatLng(37.755503, -122.403406), new google.maps.LatLng(37.754665, -122.403242), new google.maps.LatLng(37.753837, -122.403172), new google.maps.LatLng(37.752986, -122.403112), new google.maps.LatLng(37.751266, -122.403355)];
+    function mockData() {
+        return {
+            stationA: {
+                sName: 'Station A',
+                fGrade: 85,
+                oCoordinates: [new google.maps.LatLng(14.524672, 121.105763), // start upper middle
+                new google.maps.LatLng(14.502094, 121.081964), new google.maps.LatLng(14.505384, 121.070305), new google.maps.LatLng(14.419320, 121.054306), new google.maps.LatLng(14.383582, 121.057230), // end of left side
+                new google.maps.LatLng(14.425445, 121.129080), // start of right side
+                new google.maps.LatLng(14.480934, 121.124224), new google.maps.LatLng(14.524672, 121.105763) // back to starting point
+                ]
+            },
+            stationB: {
+                sName: 'Station B',
+                fGrade: 60,
+                oCoordinates: [new google.maps.LatLng(14.425445, 121.129080), // starting point middle
+                new google.maps.LatLng(14.341195, 121.167825), new google.maps.LatLng(14.244062, 121.225463), new google.maps.LatLng(14.250689, 121.272137), // end of right
+                new google.maps.LatLng(14.198789, 121.278976), // going down
+                new google.maps.LatLng(14.196172, 121.189767), new google.maps.LatLng(14.226775, 121.195262), new google.maps.LatLng(14.268026, 121.167817), new google.maps.LatLng(14.298627, 121.132127), new google.maps.LatLng(14.331884, 121.117022), new google.maps.LatLng(14.383582, 121.057230), // end of left side
+                new google.maps.LatLng(14.425445, 121.129080)]
+            },
+            stationC: {
+                sName: 'Station C',
+                fGrade: 85,
+                oCoordinates: [new google.maps.LatLng(14.292462, 121.323418), // starting point
+                new google.maps.LatLng(14.271096, 121.328306), new google.maps.LatLng(14.250689, 121.272137), new google.maps.LatLng(14.198789, 121.278976), // start of bottom
+                new google.maps.LatLng(14.253693, 121.347344), new google.maps.LatLng(14.303526, 121.406183), new google.maps.LatLng(14.306675, 121.433149), new google.maps.LatLng(14.339930, 121.417652), new google.maps.LatLng(14.324067, 121.465856), new google.maps.LatLng(14.378693, 121.465101), new google.maps.LatLng(14.391389, 121.413612), new google.maps.LatLng(14.347065, 121.398046), new google.maps.LatLng(14.333084, 121.361794), new google.maps.LatLng(14.292462, 121.323418)]
+            },
+            stationD: {
+                sName: 'Station D',
+                fGrade: 70,
+                oCoordinates: [new google.maps.LatLng(14.423028, 121.227929), // starting upper middle of station F
+                new google.maps.LatLng(14.464953, 121.223856), new google.maps.LatLng(14.506828, 121.262481), new google.maps.LatLng(14.479968, 121.282687), new google.maps.LatLng(14.443558, 121.325967), new google.maps.LatLng(14.419818, 121.337387), new google.maps.LatLng(14.347052, 121.318549), new google.maps.LatLng(14.322540, 121.300570), new google.maps.LatLng(14.288520, 121.304637), new google.maps.LatLng(14.292462, 121.323418), // station C boundary
+                new google.maps.LatLng(14.271096, 121.328306), new google.maps.LatLng(14.250689, 121.272137), // start of left
+                new google.maps.LatLng(14.415894, 121.276933), new google.maps.LatLng(14.423028, 121.227929)]
+            },
+            stationE: {
+                sName: 'Station E',
+                fGrade: 90,
+                oCoordinates: [new google.maps.LatLng(14.524672, 121.105763), // starting point upper middle
+                new google.maps.LatLng(14.480934, 121.124224), new google.maps.LatLng(14.425445, 121.129080), // end of left side
+                new google.maps.LatLng(14.432728, 121.151434), new google.maps.LatLng(14.417420, 121.186111), new google.maps.LatLng(14.412087, 121.211179), new google.maps.LatLng(14.462648, 121.181325), // start of right side
+                new google.maps.LatLng(14.462648, 121.181325), new google.maps.LatLng(14.471627, 121.183734), new google.maps.LatLng(14.494406, 121.172626), new google.maps.LatLng(14.493289, 121.165687), new google.maps.LatLng(14.509341, 121.142949), new google.maps.LatLng(14.527629, 121.139484), new google.maps.LatLng(14.527629, 121.139484), new google.maps.LatLng(14.524672, 121.105763) // back to starting point
+                ]
+            },
+            stationF: {
+                sName: 'Station F',
+                fGrade: 55,
+                oCoordinates: [new google.maps.LatLng(14.425445, 121.129080), // starting point middle
+                new google.maps.LatLng(14.432728, 121.151434), new google.maps.LatLng(14.417420, 121.186111), new google.maps.LatLng(14.412087, 121.211179), new google.maps.LatLng(14.423028, 121.227929), new google.maps.LatLng(14.415894, 121.276933), new google.maps.LatLng(14.250689, 121.272137), // end of mid to right
+                new google.maps.LatLng(14.244062, 121.225463), new google.maps.LatLng(14.341195, 121.167825), new google.maps.LatLng(14.425445, 121.129080)]
+            }
+        };
     }
 });
-
-// function toggleHeatmap() {
-//     heatmap.setMap(heatmap.getMap() ? null : map);
-// }
-//
-// function changeGradient() {
-//     var gradient = [
-//         'rgba(0, 255, 255, 0)',
-//         'rgba(0, 255, 255, 1)',
-//         'rgba(0, 191, 255, 1)',
-//         'rgba(0, 127, 255, 1)',
-//         'rgba(0, 63, 255, 1)',
-//         'rgba(0, 0, 255, 1)',
-//         'rgba(0, 0, 223, 1)',
-//         'rgba(0, 0, 191, 1)',
-//         'rgba(0, 0, 159, 1)',
-//         'rgba(0, 0, 127, 1)',
-//         'rgba(63, 0, 91, 1)',
-//         'rgba(127, 0, 63, 1)',
-//         'rgba(191, 0, 31, 1)',
-//         'rgba(255, 0, 0, 1)'
-//     ]
-//     heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
-// }
-//
-// function changeRadius() {
-//     heatmap.set('radius', heatmap.get('radius') ? null : 20);
-// }
-//
-// function changeOpacity() {
-//     heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
-// }
 
 /***/ }),
 
@@ -374,6 +396,185 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;(function(root
 
 });
 
+
+/***/ }),
+
+/***/ 258:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var WaterStation = function () {
+    function WaterStation(oGoogle, oMap, oStationInfo) {
+        _classCallCheck(this, WaterStation);
+
+        this.oGoogle = oGoogle;
+        this.oMap = oMap;
+        this.oStationInfo = oStationInfo;
+
+        this.createStation();
+    }
+
+    /**
+     * Creates Station
+     */
+
+
+    _createClass(WaterStation, [{
+        key: 'createStation',
+        value: function createStation() {
+            this.createNewMarker(this.getCoordinatesCenter());
+            this.createNewPolyline();
+            this.oPolygon = this.createNewPolygon();
+        }
+
+        /**
+         * Creates Boundary by Coordinates given
+         */
+
+    }, {
+        key: 'createNewPolyline',
+        value: function createNewPolyline() {
+            //[{lat: 22.291, lng: 153.027}, {lat: 18.291, lng: 153.027}]
+            new this.oGoogle.maps.Polyline({
+                path: this.oStationInfo.oCoordinates,
+                strokeColor: '#ffffff',
+                strokeOpacity: 0,
+                icons: [{
+                    icon: {
+                        path: 'M 0,-1 0,1',
+                        strokeOpacity: 1,
+                        scale: 2
+                    },
+                    offset: '0',
+                    repeat: '10px'
+                }],
+                map: this.oMap
+            });
+        }
+
+        /**
+         * Fills the Station with color for the Grade Determiner
+         */
+
+    }, {
+        key: 'createNewPolygon',
+        value: function createNewPolygon() {
+            return new this.oGoogle.maps.Polygon({
+                paths: this.oStationInfo.oCoordinates,
+                strokeOpacity: 0,
+                strokeWeight: 0,
+                fillColor: this.getColorByQualityIndex(),
+                fillOpacity: 0.4,
+                map: this.oMap
+            });
+        }
+
+        /**
+         * Creates Marker for Information
+         * @param oPosition
+         */
+
+    }, {
+        key: 'createNewMarker',
+        value: function createNewMarker(oPosition) {
+            var _this = this;
+
+            var oInfoWindow = this.createInfoWindow();
+            var oMarker = new this.oGoogle.maps.Marker({
+                position: oPosition,
+                title: this.oStationInfo.sName,
+                map: this.oMap
+            });
+
+            // On Hover shows Summary
+            oMarker.addListener('mouseover', function () {
+                return oInfoWindow.open(_this.oMap, oMarker);
+            });
+            oMarker.addListener('mouseout', function () {
+                return oInfoWindow.close();
+            });
+
+            // On Click zoom's the map
+            oMarker.addListener('click', function () {
+                _this.oMap.setZoom(12);
+                _this.oMap.setCenter(oMarker.getPosition());
+                _this.oMap.panTo(oMarker.getPosition());
+            });
+        }
+
+        /**
+         * Popup Window of Markers
+         * @return {*}
+         */
+
+    }, {
+        key: 'createInfoWindow',
+        value: function createInfoWindow() {
+            return new this.oGoogle.maps.InfoWindow({
+                content: '<div>Station: ' + this.oStationInfo.sName + ' <br> Grade: ' + this.oStationInfo.fGrade + '</div>'
+            });
+        }
+
+        /**
+         * Gets the Center of the Polygon for the position of the Marker
+         * @return {*}
+         */
+
+    }, {
+        key: 'getCoordinatesCenter',
+        value: function getCoordinatesCenter() {
+            var oBounds = new this.oGoogle.maps.LatLngBounds();
+            for (var iIndex = 0; iIndex < this.oStationInfo.oCoordinates.length; iIndex++) {
+                oBounds.extend(this.oStationInfo.oCoordinates[iIndex]);
+            }
+
+            return oBounds.getCenter();
+        }
+
+        /**
+         * Updates the grade of the Station
+         * @param fGrade
+         */
+
+    }, {
+        key: 'updateWaterGrade',
+        value: function updateWaterGrade(fGrade) {
+            this.oStationInfo.fGrade = fGrade;
+            this.oPolygon.setOptions({
+                fillColor: this.getColorByQualityIndex()
+            });
+        }
+
+        /**
+         * Return color of the station to it's equivalent grade
+         * @return {string}
+         */
+
+    }, {
+        key: 'getColorByQualityIndex',
+        value: function getColorByQualityIndex() {
+            if (this.oStationInfo.fGrade >= 95) {
+                return '#1c7617';
+            } else if (this.oStationInfo.fGrade >= 80 && this.oStationInfo.fGrade < 94) {
+                return '#66ff00';
+            } else if (this.oStationInfo.fGrade >= 65 && this.oStationInfo.fGrade < 79) {
+                return '#FFFF00';
+            } else if (this.oStationInfo.fGrade >= 45 && this.oStationInfo.fGrade < 64) {
+                return '#FF6600';
+            }
+
+            return '#FF0000';
+        }
+    }]);
+
+    return WaterStation;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (WaterStation);
 
 /***/ })
 
