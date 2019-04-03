@@ -40,23 +40,25 @@
                                         <input id="inputEmail" name="email" type="email" class="form-control" placeholder="sample123@email.com" value="{{$aDetails['email']}}" required>
                                     </div>
                                 </div>
-                                <div class="form-row">
-                                    <div class="col mb-3">
-                                        <label for="inputRole">User Role</label>
-                                        <select id="inputRole" class="form-control">
-                                            <option selected>{{$aDetails['user_role']}}</option>
-                                            @if ($aDetails['user_role'] === 'SUPER_ADMIN')
-                                                <option>ADMIN</option>
-                                            @else
-                                                <option>SUPER_ADMIN</option>
-                                            @endif
-                                        </select>
+                                @if ($aDetails['user_role'] === 'SUPER_ADMIN')
+                                    <div class="form-row">
+                                        <div class="col mb-3">
+                                            <label for="inputRole">User Role</label>
+                                            <select id="inputRole" class="form-control">
+                                                <option selected>{{$aDetails['user_role']}}</option>
+                                                @if ($aDetails['user_role'] === 'SUPER_ADMIN')
+                                                    <option>ADMIN</option>
+                                                @else
+                                                    <option>SUPER_ADMIN</option>
+                                                @endif
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                                 <div class="form-row">
                                     <div class="col offset-md-9">
-                                        <button id=editButton class="btn btn-primary">Update</button>
-                                        <button id=editButton class="btn btn-danger">Cancel</button>
+                                        <button id="editButton" class="btn btn-primary" value="{{$aDetails['id']}}">Update</button>
+                                        <a href="/admin/users/verified"><button class="btn btn-danger">Cancel</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -76,4 +78,5 @@
 
 @section('js')
     <script src="{{asset('js/admin.js')}}"></script>
+    <script src="{{asset('js/updateUser.js')}}"></script>
 @stop

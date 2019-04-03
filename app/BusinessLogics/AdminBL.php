@@ -4,6 +4,8 @@ namespace App\BusinessLogics;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 /**
  * Class blAdmin
@@ -114,5 +116,51 @@ class AdminBL
     public function getSpecificVerifiedUser(int $iId)
     {
         return $this->oModelUser::where('id', $iId)->where('verified', 'YES')->first();
+    }
+
+    /**
+     * @param array $aUserInfo
+     * @return array
+     */
+    public function updateUser(array $aUserInfo)
+    {
+        $bResult = $this->oModelUser::where('id', $aUserInfo['id'])->update($aUserInfo) === 1;
+        if ($bResult === false) {
+            return ['bResult' => false, 'sMessage' => 'Unexpected error while updating user.'];
+        }
+
+        return ['bResult' => true, 'sMessage' => 'Successfully updated user.'];
+    }
+
+    /**
+     * @param array $aUserInfo
+     * @return array
+     */
+    public function validateUserOnUpdate(array $aUserInfo) {
+        $oValidator = Validator::make($aUserInfo, [
+            'firstname' => ['required', 'string', 'max:50', 'regex:/^[a-zA-Z\s]+[.\']*$/'],
+            'lastname'  => ['required', 'string', 'max:50', 'regex:/^[a-zA-Z\s]+[.\']*$/'],
+            'username'  => ['required', 'string', 'min:6', 'max:20', 'unique:users,username,' . $aUserInfo['id'], 'regex:/^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/'],
+            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users,email,' . $aUserInfo['id']],
+            'user_role' => 'in:SUPER_ADMIN,ADMIN'
+        ]);
+
+        return $this->handleValidatorFailure($oValidator);
+    }
+
+    /**
+     * @param Validator $oValidator
+     * @return array
+     */
+    public function handleValidatorFailure($oValidator) : array
+    {
+        if ($oValidator->fails()) {
+            return [
+                'bResult'  => false,
+                'sMessage' => $oValidator->errors()->first()
+            ];
+        }
+
+        return ['bResult' => true];
     }
 }

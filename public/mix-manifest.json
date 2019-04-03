@@ -1,6 +1,7 @@
 {
     "/js/chart.js": "/js/chart.js",
     "/js/admin.js": "/js/admin.js",
+    "/js/updateUser.js": "/js/updateUser.js",
     "/js/app.js": "/js/app.js",
     "/css/sidebar.css": "/css/sidebar.css",
     "/css/pages.css": "/css/pages.css",

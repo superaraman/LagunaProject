@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\BusinessLogics\AdminBL;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class AdminController extends Controller
@@ -129,11 +130,16 @@ class AdminController extends Controller
     /**
      * Edit Page
      *
-     * @param $iId
+     * @param $sId
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|mixed
      */
-    public function editPage($iId)
+    public function editPage($sId)
     {
+        $iId = (int)$sId;
+        if (Auth::user()->id !== $iId && Auth::user()->user_role !== 'SUPER_ADMIN') {
+            return redirect('admin');
+        }
+
         $mUser = $this->oBlAdmin->getSpecificVerifiedUser($iId);
         if ($mUser === null) {
             return redirect('/admin/users/verified');
@@ -143,5 +149,16 @@ class AdminController extends Controller
             'aDetails' => $mUser,
             'sMethod'  => 'edit'
         ]);
+    }
+
+    public function updateUser(Request $aRequest)
+    {
+        $aUserInfo = $aRequest->all();
+        $aValid = $this->oBlAdmin->validateUserOnUpdate($aUserInfo);
+        if ($aValid['bResult'] === false) {
+            return $aValid;
+        }
+
+        return $this->oBlAdmin->updateUser($aUserInfo);
     }
 }
