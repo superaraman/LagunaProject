@@ -84,7 +84,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var LAGUNA_COORDINATE = { lat: 14.3935, lng: 121.1939 };
+var LAGUNA_COORDINATE = { lat: 14.372112, lng: 121.270716 };
 
 $(document).ready(function () {
     __WEBPACK_IMPORTED_MODULE_0_google_maps___default.a.KEY = 'AIzaSyBymq4YRMhZoMwnPUd2SfyzQQLEvUtafkM';
@@ -93,26 +93,23 @@ $(document).ready(function () {
     var oMap = void 0,
         aStationLists = [];
     __WEBPACK_IMPORTED_MODULE_0_google_maps___default.a.load(function (oGoogle) {
-        var oStationData = mockData();
+        var oStationData = getCoordinatesPerStation();
         oMap = new oGoogle.maps.Map(document.getElementById('map'), {
-            zoom: 10,
+            zoom: 11,
             center: LAGUNA_COORDINATE
         });
 
-        Object.values(oStationData).forEach(function (oStation) {
-            aStationLists[oStation.sName] = new __WEBPACK_IMPORTED_MODULE_1__modules_WaterStation__["a" /* default */](oGoogle, oMap, oStation);
+        Object.keys(oStationData).forEach(function (sKey) {
+            aStationLists[sKey] = new __WEBPACK_IMPORTED_MODULE_1__modules_WaterStation__["a" /* default */](oGoogle, oMap, oStationData[sKey]);
         });
 
-        aStationLists['Station A'].updateWaterGrade(10);
-
-        oMap.addListener();
+        aStationLists['stationA'].updateWaterGrade(10);
     });
 
-    function mockData() {
+    function getCoordinatesPerStation() {
         return {
             stationA: {
                 sName: 'Station A',
-                fGrade: 85,
                 oCoordinates: [new google.maps.LatLng(14.524672, 121.105763), // start upper middle
                 new google.maps.LatLng(14.502094, 121.081964), new google.maps.LatLng(14.505384, 121.070305), new google.maps.LatLng(14.419320, 121.054306), new google.maps.LatLng(14.383582, 121.057230), // end of left side
                 new google.maps.LatLng(14.425445, 121.129080), // start of right side
@@ -121,7 +118,6 @@ $(document).ready(function () {
             },
             stationB: {
                 sName: 'Station B',
-                fGrade: 60,
                 oCoordinates: [new google.maps.LatLng(14.425445, 121.129080), // starting point middle
                 new google.maps.LatLng(14.341195, 121.167825), new google.maps.LatLng(14.244062, 121.225463), new google.maps.LatLng(14.250689, 121.272137), // end of right
                 new google.maps.LatLng(14.198789, 121.278976), // going down
@@ -130,14 +126,12 @@ $(document).ready(function () {
             },
             stationC: {
                 sName: 'Station C',
-                fGrade: 85,
                 oCoordinates: [new google.maps.LatLng(14.292462, 121.323418), // starting point
                 new google.maps.LatLng(14.271096, 121.328306), new google.maps.LatLng(14.250689, 121.272137), new google.maps.LatLng(14.198789, 121.278976), // start of bottom
                 new google.maps.LatLng(14.253693, 121.347344), new google.maps.LatLng(14.303526, 121.406183), new google.maps.LatLng(14.306675, 121.433149), new google.maps.LatLng(14.339930, 121.417652), new google.maps.LatLng(14.324067, 121.465856), new google.maps.LatLng(14.378693, 121.465101), new google.maps.LatLng(14.391389, 121.413612), new google.maps.LatLng(14.347065, 121.398046), new google.maps.LatLng(14.333084, 121.361794), new google.maps.LatLng(14.292462, 121.323418)]
             },
             stationD: {
                 sName: 'Station D',
-                fGrade: 70,
                 oCoordinates: [new google.maps.LatLng(14.423028, 121.227929), // starting upper middle of station F
                 new google.maps.LatLng(14.464953, 121.223856), new google.maps.LatLng(14.506828, 121.262481), new google.maps.LatLng(14.479968, 121.282687), new google.maps.LatLng(14.443558, 121.325967), new google.maps.LatLng(14.419818, 121.337387), new google.maps.LatLng(14.347052, 121.318549), new google.maps.LatLng(14.322540, 121.300570), new google.maps.LatLng(14.288520, 121.304637), new google.maps.LatLng(14.292462, 121.323418), // station C boundary
                 new google.maps.LatLng(14.271096, 121.328306), new google.maps.LatLng(14.250689, 121.272137), // start of left
@@ -145,7 +139,6 @@ $(document).ready(function () {
             },
             stationE: {
                 sName: 'Station E',
-                fGrade: 90,
                 oCoordinates: [new google.maps.LatLng(14.524672, 121.105763), // starting point upper middle
                 new google.maps.LatLng(14.480934, 121.124224), new google.maps.LatLng(14.425445, 121.129080), // end of left side
                 new google.maps.LatLng(14.432728, 121.151434), new google.maps.LatLng(14.417420, 121.186111), new google.maps.LatLng(14.412087, 121.211179), new google.maps.LatLng(14.462648, 121.181325), // start of right side
@@ -154,7 +147,6 @@ $(document).ready(function () {
             },
             stationF: {
                 sName: 'Station F',
-                fGrade: 55,
                 oCoordinates: [new google.maps.LatLng(14.425445, 121.129080), // starting point middle
                 new google.maps.LatLng(14.432728, 121.151434), new google.maps.LatLng(14.417420, 121.186111), new google.maps.LatLng(14.412087, 121.211179), new google.maps.LatLng(14.423028, 121.227929), new google.maps.LatLng(14.415894, 121.276933), new google.maps.LatLng(14.250689, 121.272137), // end of mid to right
                 new google.maps.LatLng(14.244062, 121.225463), new google.maps.LatLng(14.341195, 121.167825), new google.maps.LatLng(14.425445, 121.129080)]
@@ -409,11 +401,14 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var WaterStation = function () {
     function WaterStation(oGoogle, oMap, oStationInfo) {
+        var fGrade = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : Math.random() * (100 - 1) + 1;
+
         _classCallCheck(this, WaterStation);
 
         this.oGoogle = oGoogle;
         this.oMap = oMap;
         this.oStationInfo = oStationInfo;
+        this.fGrade = fGrade;
 
         this.createStation();
     }
@@ -483,26 +478,26 @@ var WaterStation = function () {
         value: function createNewMarker(oPosition) {
             var _this = this;
 
-            var oInfoWindow = this.createInfoWindow();
-            var oMarker = new this.oGoogle.maps.Marker({
+            this.oInfoWindow = this.createInfoWindow();
+            this.oMarker = new this.oGoogle.maps.Marker({
                 position: oPosition,
                 title: this.oStationInfo.sName,
                 map: this.oMap
             });
 
             // On Hover shows Summary
-            oMarker.addListener('mouseover', function () {
-                return oInfoWindow.open(_this.oMap, oMarker);
+            this.oMarker.addListener('mouseover', function () {
+                return _this.oInfoWindow.open(_this.oMap, _this.oMarker);
             });
-            oMarker.addListener('mouseout', function () {
-                return oInfoWindow.close();
+            this.oMarker.addListener('mouseout', function () {
+                return _this.oInfoWindow.close();
             });
 
             // On Click zoom's the map
-            oMarker.addListener('click', function () {
+            this.oMarker.addListener('click', function () {
                 _this.oMap.setZoom(12);
-                _this.oMap.setCenter(oMarker.getPosition());
-                _this.oMap.panTo(oMarker.getPosition());
+                _this.oMap.setCenter(_this.oMarker.getPosition());
+                _this.oMap.panTo(_this.oMarker.getPosition());
             });
         }
 
@@ -515,7 +510,7 @@ var WaterStation = function () {
         key: 'createInfoWindow',
         value: function createInfoWindow() {
             return new this.oGoogle.maps.InfoWindow({
-                content: '<div>Station: ' + this.oStationInfo.sName + ' <br> Grade: ' + this.oStationInfo.fGrade + '</div>'
+                content: '<div>Station: ' + this.oStationInfo.sName + ' <br> Grade: ' + this.fGrade + '</div>'
             });
         }
 
@@ -543,7 +538,8 @@ var WaterStation = function () {
     }, {
         key: 'updateWaterGrade',
         value: function updateWaterGrade(fGrade) {
-            this.oStationInfo.fGrade = fGrade;
+            this.fGrade = fGrade;
+            this.oInfoWindow = this.createInfoWindow();
             this.oPolygon.setOptions({
                 fillColor: this.getColorByQualityIndex()
             });
@@ -557,13 +553,13 @@ var WaterStation = function () {
     }, {
         key: 'getColorByQualityIndex',
         value: function getColorByQualityIndex() {
-            if (this.oStationInfo.fGrade >= 95) {
-                return '#1c7617';
-            } else if (this.oStationInfo.fGrade >= 80 && this.oStationInfo.fGrade < 94) {
-                return '#66ff00';
-            } else if (this.oStationInfo.fGrade >= 65 && this.oStationInfo.fGrade < 79) {
+            if (this.fGrade >= 95) {
+                return '#0bff4d';
+            } else if (this.fGrade >= 80 && this.fGrade < 94) {
+                return '#81ff00';
+            } else if (this.fGrade >= 65 && this.fGrade < 79) {
                 return '#FFFF00';
-            } else if (this.oStationInfo.fGrade >= 45 && this.oStationInfo.fGrade < 64) {
+            } else if (this.fGrade >= 45 && this.fGrade < 64) {
                 return '#FF6600';
             }
 

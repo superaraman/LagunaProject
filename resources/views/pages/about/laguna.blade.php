@@ -6,7 +6,7 @@
     <div class="jumbotron jumbotron-fluid bg-size-cover bg-position-bottom page-header-about" style="background-image: url('/img/home.jpg')">
         <div class="container text-center"> 
             <h1 class="display-4">Laguna de bay</h1>
-            <span class="lead">"The largest lake in the Philippines"</p>
+            <span class="lead">"The largest lake in the Philippines"</span>
         </div>
     </div>
 

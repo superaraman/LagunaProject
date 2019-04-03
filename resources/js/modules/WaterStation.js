@@ -1,8 +1,9 @@
 class WaterStation {
-    constructor(oGoogle, oMap, oStationInfo) {
+    constructor(oGoogle, oMap, oStationInfo, fGrade = Math.random() * (100 - 1) + 1) {
         this.oGoogle = oGoogle;
         this.oMap = oMap;
         this.oStationInfo = oStationInfo;
+        this.fGrade = fGrade;
 
         this.createStation();
     }
@@ -57,22 +58,22 @@ class WaterStation {
      * @param oPosition
      */
     createNewMarker(oPosition) {
-        let oInfoWindow = this.createInfoWindow();
-        let oMarker = new this.oGoogle.maps.Marker({
+        this.oInfoWindow = this.createInfoWindow();
+        this.oMarker = new this.oGoogle.maps.Marker({
             position: oPosition,
             title: this.oStationInfo.sName,
             map: this.oMap
         });
 
         // On Hover shows Summary
-        oMarker.addListener('mouseover', () => oInfoWindow.open(this.oMap, oMarker));
-        oMarker.addListener('mouseout', () => oInfoWindow.close());
+        this.oMarker.addListener('mouseover', () => this.oInfoWindow.open(this.oMap, this.oMarker));
+        this.oMarker.addListener('mouseout', () => this.oInfoWindow.close());
 
         // On Click zoom's the map
-        oMarker.addListener('click', () => {
+        this.oMarker.addListener('click', () => {
             this.oMap.setZoom(12);
-            this.oMap.setCenter(oMarker.getPosition());
-            this.oMap.panTo(oMarker.getPosition());
+            this.oMap.setCenter(this.oMarker.getPosition());
+            this.oMap.panTo(this.oMarker.getPosition());
         });
     }
 
@@ -82,7 +83,7 @@ class WaterStation {
      */
     createInfoWindow() {
         return new this.oGoogle.maps.InfoWindow({
-            content: `<div>Station: ${this.oStationInfo.sName} <br> Grade: ${this.oStationInfo.fGrade}</div>`
+            content: `<div>Station: ${this.oStationInfo.sName} <br> Grade: ${this.fGrade}</div>`
         });
     }
 
@@ -104,7 +105,8 @@ class WaterStation {
      * @param fGrade
      */
     updateWaterGrade(fGrade) {
-        this.oStationInfo.fGrade = fGrade;
+        this.fGrade = fGrade;
+        this.oInfoWindow = this.createInfoWindow();
         this.oPolygon.setOptions({
             fillColor: this.getColorByQualityIndex(),
         });
@@ -115,13 +117,13 @@ class WaterStation {
      * @return {string}
      */
     getColorByQualityIndex() {
-        if (this.oStationInfo.fGrade >= 95) {
-            return '#1c7617';
-        } else if (this.oStationInfo.fGrade>= 80 && this.oStationInfo.fGrade < 94) {
-            return '#66ff00';
-        } else if (this.oStationInfo.fGrade >= 65 && this.oStationInfo.fGrade < 79) {
+        if (this.fGrade >= 95) {
+            return '#0bff4d';
+        } else if (this.fGrade>= 80 && this.fGrade < 94) {
+            return '#81ff00';
+        } else if (this.fGrade >= 65 && this.fGrade < 79) {
             return '#FFFF00';
-        } else if (this.oStationInfo.fGrade >= 45 && this.oStationInfo.fGrade < 64) {
+        } else if (this.fGrade >= 45 && this.fGrade < 64) {
             return '#FF6600';
         }
 

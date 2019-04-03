@@ -89,7 +89,7 @@ $(document).ready(function () {
             this.oReadMoreBtn.on('click', this.readMore);
         },
         readMore: function readMore() {
-            oElement = $(this);
+            var oElement = $(this);
             var sIDToHide = oElement.attr('hide');
             $('#' + sIDToHide).toggleClass('d-none');
             oElement.remove();

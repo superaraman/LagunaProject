@@ -11,7 +11,7 @@ $(document).ready(function() {
             this.oReadMoreBtn.on('click', this.readMore);
         },
         readMore: function() {
-            oElement = $(this);
+            let oElement = $(this);
             let sIDToHide = oElement.attr('hide');
             $('#' + sIDToHide).toggleClass('d-none');
             oElement.remove();

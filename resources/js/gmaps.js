@@ -1,7 +1,7 @@
 import GoogleMapsLoader from 'google-maps';
 import WaterStation from './modules/WaterStation';
 
-const LAGUNA_COORDINATE = {lat: 14.3935, lng: 121.1939};
+const LAGUNA_COORDINATE = {lat: 14.372112, lng: 121.270716};
 
 $(document).ready(function () {
     GoogleMapsLoader.KEY = 'AIzaSyBymq4YRMhZoMwnPUd2SfyzQQLEvUtafkM';
@@ -9,26 +9,23 @@ $(document).ready(function () {
 
     let oMap, aStationLists = [];
     GoogleMapsLoader.load(function(oGoogle) {
-        const oStationData = mockData();
+        const oStationData = getCoordinatesPerStation();
         oMap = new oGoogle.maps.Map(document.getElementById('map'), {
-            zoom: 10,
+            zoom: 11,
             center: LAGUNA_COORDINATE
         });
 
-        Object.values(oStationData).forEach((oStation) => {
-            aStationLists[oStation.sName] = new WaterStation(oGoogle, oMap, oStation);
+        Object.keys(oStationData).forEach((sKey) => {
+            aStationLists[sKey] = new WaterStation(oGoogle, oMap, oStationData[sKey]);
         });
 
-        aStationLists['Station A'].updateWaterGrade(10);
-
-        oMap.addListener()
+        aStationLists['stationA'].updateWaterGrade(10);
     });
 
-    function mockData() {
+    function getCoordinatesPerStation() {
         return {
             stationA : {
                 sName: 'Station A',
-                fGrade: 85,
                 oCoordinates: [
                     new google.maps.LatLng(14.524672, 121.105763), // start upper middle
                     new google.maps.LatLng(14.502094, 121.081964),
@@ -42,7 +39,6 @@ $(document).ready(function () {
             },
             stationB : {
                 sName: 'Station B',
-                fGrade: 60,
                 oCoordinates: [
                     new google.maps.LatLng(14.425445, 121.129080), // starting point middle
                     new google.maps.LatLng(14.341195, 121.167825),
@@ -60,7 +56,6 @@ $(document).ready(function () {
             },
             stationC : {
                 sName: 'Station C',
-                fGrade: 85,
                 oCoordinates: [
                     new google.maps.LatLng(14.292462, 121.323418), // starting point
                     new google.maps.LatLng(14.271096, 121.328306),
@@ -82,7 +77,6 @@ $(document).ready(function () {
             },
             stationD : {
                 sName: 'Station D',
-                fGrade: 70,
                 oCoordinates: [
                     new google.maps.LatLng(14.423028, 121.227929), // starting upper middle of station F
                     new google.maps.LatLng(14.464953, 121.223856),
@@ -102,7 +96,6 @@ $(document).ready(function () {
             },
             stationE : {
                 sName: 'Station E',
-                fGrade: 90,
                 oCoordinates: [
                     new google.maps.LatLng(14.524672, 121.105763), // starting point upper middle
                     new google.maps.LatLng(14.480934, 121.124224),
@@ -123,7 +116,6 @@ $(document).ready(function () {
             },
             stationF : {
                 sName: 'Station F',
-                fGrade: 55,
                 oCoordinates: [
                     new google.maps.LatLng(14.425445, 121.129080), // starting point middle
                     new google.maps.LatLng(14.432728, 121.151434),
