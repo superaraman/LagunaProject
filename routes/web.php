@@ -45,3 +45,7 @@ Route::group(['middleware' => 'App\Http\Middleware\SuperAdmin'], function() {
     Route::get('/admin/users/pendings', 'AdminController@pendingUsers');
     Route::get('/admin/users/verified', 'AdminController@verifiedUsers');
 });
+
+Route::fallback(function() {
+    return redirect()->route('/home');
+});
