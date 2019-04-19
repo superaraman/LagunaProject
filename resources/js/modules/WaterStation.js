@@ -62,7 +62,8 @@ class WaterStation {
         this.oMarker = new this.oGoogle.maps.Marker({
             position: oPosition,
             title: this.oStationInfo.sName,
-            map: this.oMap
+            map: this.oMap,
+            // icon: '/img/station-icon.png'
         });
 
         // On Hover shows Summary
@@ -83,7 +84,7 @@ class WaterStation {
      */
     createInfoWindow() {
         return new this.oGoogle.maps.InfoWindow({
-            content: `<div>Station: ${this.oStationInfo.sName} <br> Grade: ${this.fGrade}</div>`
+            content: `<div>${this.oStationInfo.sName} <br> Grade: ${this.fGrade}</div>`
         });
     }
 

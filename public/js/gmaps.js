@@ -81,9 +81,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_google_maps__ = __webpack_require__(259);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_google_maps___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_google_maps__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__modules_WaterStation__ = __webpack_require__(260);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_Legends__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__coordinates__ = __webpack_require__(264);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__modules_Legends__ = __webpack_require__(261);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__coordinates__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__constants__ = __webpack_require__(263);
 
 
 
@@ -444,6 +444,7 @@ var WaterStation = function () {
                 position: oPosition,
                 title: this.oStationInfo.sName,
                 map: this.oMap
+                // icon: '/img/station-icon.png'
             });
 
             // On Hover shows Summary
@@ -471,7 +472,7 @@ var WaterStation = function () {
         key: 'createInfoWindow',
         value: function createInfoWindow() {
             return new this.oGoogle.maps.InfoWindow({
-                content: '<div>Station: ' + this.oStationInfo.sName + ' <br> Grade: ' + this.fGrade + '</div>'
+                content: '<div>' + this.oStationInfo.sName + ' <br> Grade: ' + this.fGrade + '</div>'
             });
         }
 
@@ -535,7 +536,61 @@ var WaterStation = function () {
 
 /***/ }),
 
-/***/ 264:
+/***/ 261:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Legends = function () {
+    function Legends(oGoogle, oMap, oLists, sTitle) {
+        _classCallCheck(this, Legends);
+
+        this.oGoogle = oGoogle;
+        this.oMap = oMap;
+        this.sTitle = sTitle;
+        this.oLists = oLists;
+        this.oLegend = document.getElementById('legend');
+
+        this.create();
+    }
+
+    _createClass(Legends, [{
+        key: 'create',
+        value: function create() {
+            var oDiv = document.createElement('div');
+            var sLegends = '';
+
+            this.oLists.forEach(function (oLegends) {
+                var color = oLegends.color,
+                    name = oLegends.name;
+
+                sLegends += '\n                <li><span style="background-color:' + color + '"></span>' + name + '</li>\n            ';
+            });
+
+            oDiv.className = 'd-none';
+            oDiv.innerHTML = '\n            <div class=\'legends vertical-legend\'>\n                <div class=\'legend-title\'>' + this.sTitle + '</div>\n                <div class=\'legend-scale\'>\n                    <ul class=\'legend-labels\'>\n                        ' + sLegends + '\n                    </ul>\n                </div>\n            </div>\n        ';
+
+            // <div class='legend-source'>Source: <a href="#link to source">Name of source</a></div>
+
+            this.oLegend.appendChild(oDiv);
+            this.oMap.controls[this.oGoogle.maps.ControlPosition.TOP_RIGHT].push(this.oLegend);
+            setTimeout(function () {
+                return oDiv.classList.toggle('d-none');
+            }, 3000);
+        }
+    }]);
+
+    return Legends;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Legends);
+
+/***/ }),
+
+/***/ 262:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -632,61 +687,7 @@ function getCoordinatesPerStation() {
 
 /***/ }),
 
-/***/ 265:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Legends = function () {
-    function Legends(oGoogle, oMap, oLists, sTitle) {
-        _classCallCheck(this, Legends);
-
-        this.oGoogle = oGoogle;
-        this.oMap = oMap;
-        this.sTitle = sTitle;
-        this.oLists = oLists;
-        this.oLegend = document.getElementById('legend');
-
-        this.create();
-    }
-
-    _createClass(Legends, [{
-        key: 'create',
-        value: function create() {
-            var oDiv = document.createElement('div');
-            var sLegends = '';
-
-            this.oLists.forEach(function (oLegends) {
-                var color = oLegends.color,
-                    name = oLegends.name;
-
-                sLegends += '\n                <li><span style="background-color:' + color + '"></span>' + name + '</li>\n            ';
-            });
-
-            oDiv.className = 'd-none';
-            oDiv.innerHTML = '\n            <div class=\'legends vertical-legend\'>\n                <div class=\'legend-title\'>' + this.sTitle + '</div>\n                <div class=\'legend-scale\'>\n                    <ul class=\'legend-labels\'>\n                        ' + sLegends + '\n                    </ul>\n                </div>\n            </div>\n        ';
-
-            // <div class='legend-source'>Source: <a href="#link to source">Name of source</a></div>
-
-            this.oLegend.appendChild(oDiv);
-            this.oMap.controls[this.oGoogle.maps.ControlPosition.TOP_RIGHT].push(this.oLegend);
-            setTimeout(function () {
-                return oDiv.classList.toggle('d-none');
-            }, 3000);
-        }
-    }]);
-
-    return Legends;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (Legends);
-
-/***/ }),
-
-/***/ 266:
+/***/ 263:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
