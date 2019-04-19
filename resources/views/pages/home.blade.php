@@ -66,9 +66,11 @@
 
     <div id="overview" class="jumbotron p-3 bg-white">
         <div class="container">
-            <h1 class="display-5">Water Quality Maps</h1>
+            <h1 class="display-5">Water Quality Map</h1>
             <div class="col justyify-content-center">
-                <nav>
+                <div id="map" style="height:600px;"></div>
+                <div id="legend"></div>
+                {{-- <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" data-toggle="tab" role="tab">Nitrogen</a>
                         <a class="nav-item nav-link" data-toggle="tab" role="tab">Phosphate</a>
@@ -84,7 +86,7 @@
                     <div class="tab-pane fade show active" role="tabpanel">
                         <div id="map" style="height:600px;"></div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

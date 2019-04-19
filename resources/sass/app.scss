@@ -36,3 +36,103 @@ body {
   letter-spacing: 1px;
   width: 100%;
 }
+
+.horizontal-legend {
+  .legend-title {
+    text-align: left;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 90%;
+  }
+
+  .legend-scale {
+    ul {
+      margin: 0;
+      padding: 0;
+      float: left;
+      list-style: none;
+
+      li {
+        display: block;
+        float: left;
+        width: 50px;
+        margin-bottom: 6px;
+        text-align: center;
+        font-size: 80%;
+        list-style: none;
+
+        span {
+          display: block;
+          float: left;
+          height: 15px;
+          width: 50px;
+        }
+      }
+    }
+  }
+
+  .legend-source {
+    font-size: 70%;
+    color: #999;
+    clear: both;
+  }
+
+  a {
+  color: #777;
+  }
+}
+
+.legends {
+    font-family: Arial, sans-serif;
+    color: #f5f5f5;
+    padding: 10px;
+    margin: 10px;
+    font-size: 15px;
+}
+
+.vertical-legend {
+  .legend-title {
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 90%;
+  }
+
+  .legend-scale {
+    ul {
+      margin: 0;
+      margin-bottom: 5px;
+      padding: 0;
+      float: left;
+      list-style: none;
+
+      li {
+        font-size: 80%;
+        list-style: none;
+        margin-left: 0;
+        line-height: 18px;
+        margin-bottom: 2px;
+
+        span {
+          display: block;
+          float: left;
+          height: 16px;
+          width: 30px;
+          margin-right: 5px;
+          margin-left: 0;
+          border: 1px solid #999;
+        }
+      }
+    }
+  }
+
+  .legend-source {
+    font-size: 70%;
+    color: #999;
+    clear: both;
+  }
+
+  a {
+  color: #777;
+  }
+}

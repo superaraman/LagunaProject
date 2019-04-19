@@ -119,11 +119,11 @@ class WaterStation {
     getColorByQualityIndex() {
         if (this.fGrade >= 95) {
             return '#0bff4d';
-        } else if (this.fGrade>= 80 && this.fGrade < 94) {
+        } else if (this.fGrade >= 80 && this.fGrade <= 94) {
             return '#81ff00';
-        } else if (this.fGrade >= 65 && this.fGrade < 79) {
+        } else if (this.fGrade >= 65 && this.fGrade <= 79) {
             return '#FFFF00';
-        } else if (this.fGrade >= 45 && this.fGrade < 64) {
+        } else if (this.fGrade >= 45 && this.fGrade <= 64) {
             return '#FF6600';
         }
 
