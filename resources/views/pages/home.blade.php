@@ -91,6 +91,15 @@
         </div>
     </div>
 
+    <div id="overview" class="jumbotron p-3">
+        <div class="container">
+            <h1 class="display-5">Line Graph</h1>
+            <div class="col justyify-content-center">
+                <canvas id="line-graph"></canvas>
+            </div>
+        </div>
+    </div>
+
     @include('includes.footer')
 @endsection
 
