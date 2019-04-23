@@ -7,13 +7,30 @@ const $ = require('jquery');
 
 let oLineGraph = {
     init: function() {
+        this.data();
         this.cacheDom();
+        this.selectListener();
         this.initDatePicker();
         this.setGraphsData();
+    },
+    data() {
+        this.oSearch = {
+            start_date: null,
+            end_date: null,
+            parameter: null
+        }
     },
     cacheDom: function() {
         this.oGraph = document.getElementById('line-graph').getContext('2d');
         this.oDateRangePicker = $('#water-quality-graph').find('.date-picker');
+        this.oSelectLineGraph = $('#line-graph-select');
+    },
+    selectListener() {
+        this.oSearch.parameter = this.oSelectLineGraph.val();
+        console.log(this.oSearch);
+        this.oSelectLineGraph.on('change', function (e) {
+            oLineGraph.oSearch.parameter = e.target.value;
+        });
     },
     initDatePicker() {
         let oStartDate = moment().subtract(29, 'days');
@@ -21,6 +38,8 @@ let oLineGraph = {
 
         const fnCallBack = (oStartDate, oEndDate) => {
             this.oDateRangePicker.find('span').html(oStartDate.format('MMM D, YYYY') + ' - ' + oEndDate.format('MMM D, YYYY'));
+            this.oSearch.start_date = oStartDate.format('DD/MM/YYYY');
+            this.oSearch.end_date = oEndDate.format('DD/MM/YYYY');
             console.log(oStartDate.format('DD/MM/YYYY') + ' - ' + oEndDate.format('DD/MM/YYYY'))
         };
 

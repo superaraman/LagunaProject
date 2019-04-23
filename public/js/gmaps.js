@@ -45190,13 +45190,31 @@ var $ = __webpack_require__(39);
 
 var oLineGraph = {
     init: function init() {
+        this.data();
         this.cacheDom();
+        this.selectListener();
         this.initDatePicker();
         this.setGraphsData();
     },
+    data: function data() {
+        this.oSearch = {
+            start_date: null,
+            end_date: null,
+            parameter: null
+        };
+    },
+
     cacheDom: function cacheDom() {
         this.oGraph = document.getElementById('line-graph').getContext('2d');
         this.oDateRangePicker = $('#water-quality-graph').find('.date-picker');
+        this.oSelectLineGraph = $('#line-graph-select');
+    },
+    selectListener: function selectListener() {
+        this.oSearch.parameter = this.oSelectLineGraph.val();
+        console.log(this.oSearch);
+        this.oSelectLineGraph.on('change', function (e) {
+            oLineGraph.oSearch.parameter = e.target.value;
+        });
     },
     initDatePicker: function initDatePicker() {
         var _this = this;
@@ -45206,6 +45224,8 @@ var oLineGraph = {
 
         var fnCallBack = function fnCallBack(oStartDate, oEndDate) {
             _this.oDateRangePicker.find('span').html(oStartDate.format('MMM D, YYYY') + ' - ' + oEndDate.format('MMM D, YYYY'));
+            _this.oSearch.start_date = oStartDate.format('DD/MM/YYYY');
+            _this.oSearch.end_date = oEndDate.format('DD/MM/YYYY');
             console.log(oStartDate.format('DD/MM/YYYY') + ' - ' + oEndDate.format('DD/MM/YYYY'));
         };
 
