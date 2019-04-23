@@ -70,6 +70,7 @@
             <div class="col justyify-content-center">
                 <div id="map" style="height:600px;"></div>
                 <div id="legend"></div>
+
                 {{-- <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                         <a class="nav-item nav-link active" data-toggle="tab" role="tab">Nitrogen</a>
@@ -91,10 +92,35 @@
         </div>
     </div>
 
-    <div id="overview" class="jumbotron p-3">
+    <div id="water-quality-graph" class="jumbotron p-3" style="background: #f2f2f2">
         <div class="container">
             <h1 class="display-5">Line Graph</h1>
-            <div class="col justyify-content-center">
+            <div class="row">
+                <div class="col-md-5 col-12 form-group">
+                    <label for="line-graph-range">Date Range: </label>
+                    <div id="line-graph-range" class="form-control date-picker">
+                        <i class="fa fa-calendar"></i>&nbsp;
+                        <span></span> <i class="fa fa-caret-down"></i>
+                    </div>
+                </div>
+                <div class="col-md-4 col-12 form-group">
+                    <label for="line-graph-select">Parameter: </label>
+                    <select id="line-graph-select" class="form-control search-parameters">
+                        <option selected>Nitrogen</option>
+                        <option>Phosphate</option>
+                        <option>pH</option>
+                        <option>E. Coli</option>
+                        <option>Dissolved Oxygen</option>
+                        <option>Amonia</option>
+                        <option>Temp F</option>
+                        <option>Transparency</option>
+                    </select>
+                </div>
+                <div class="col-md-3 col-12 form-group text-center">
+                    <button type="button" class="btn btn-primary w-75" style="margin-top: 30px;">Search</button>
+                </div>
+            </div>
+            <div class="row justyify-content-center">
                 <canvas id="line-graph"></canvas>
             </div>
         </div>
@@ -103,8 +129,10 @@
     @include('includes.footer')
 @endsection
 
-
 @section('js')
     <script src="{{asset('js/pages.js')}}"></script>
     <script src="{{asset('js/gmaps.js')}}"></script>
 @stop
+
+
+

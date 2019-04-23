@@ -1,13 +1,43 @@
 import 'core-js/fn/promise';
 import Chart from 'chart.js';
+import 'bootstrap-daterangepicker/daterangepicker';
+import 'bootstrap-daterangepicker/daterangepicker.css';
+import moment from 'moment';
+const $ = require('jquery');
 
 let oLineGraph = {
     init: function() {
         this.cacheDom();
+        this.initDatePicker();
         this.setGraphsData();
     },
     cacheDom: function() {
         this.oGraph = document.getElementById('line-graph').getContext('2d');
+        this.oDateRangePicker = $('#water-quality-graph').find('.date-picker');
+    },
+    initDatePicker() {
+        let oStartDate = moment().subtract(29, 'days');
+        let oEndDate = moment();
+
+        const fnCallBack = (oStartDate, oEndDate) => {
+            this.oDateRangePicker.find('span').html(oStartDate.format('MMM D, YYYY') + ' - ' + oEndDate.format('MMM D, YYYY'));
+            console.log(oStartDate.format('DD/MM/YYYY') + ' - ' + oEndDate.format('DD/MM/YYYY'))
+        };
+
+        this.oDateRangePicker.daterangepicker({
+            startDate: oStartDate,
+            endDate: oEndDate,
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, fnCallBack);
+
+        fnCallBack(oStartDate, oEndDate);
     },
     setGraphsData() {
         let data = {
